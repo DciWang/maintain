@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dciwang.mbg.mapper.SysEnvMapper">
+  <resultMap id="BaseResultMap" type="com.dciwang.mbg.model.SysEnv">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="var_id" jdbcType="VARCHAR" property="varId" />
+    <result column="var_name" jdbcType="VARCHAR" property="varName" />
+    <result column="var_value" jdbcType="VARCHAR" property="varValue" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="var_type" jdbcType="VARCHAR" property="varType" />
+    <result column="show_sequence" jdbcType="INTEGER" property="showSequence" />
+    <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+    <result column="updated_by" jdbcType="VARCHAR" property="updatedBy" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, var_id, var_name, var_value, remark, var_type, show_sequence, updated_at, updated_by
+  </sql>
+  <select id="selectByExample" parameterType="com.dciwang.mbg.model.SysEnvExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_env
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_env
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_env
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dciwang.mbg.model.SysEnvExample">
+    delete from sys_env
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dciwang.mbg.model.SysEnv">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sys_env (var_id, var_name, var_value, 
+      remark, var_type, show_sequence, 
+      updated_at, updated_by)
+    values (#{varId,jdbcType=VARCHAR}, #{varName,jdbcType=VARCHAR}, #{varValue,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{varType,jdbcType=VARCHAR}, #{showSequence,jdbcType=INTEGER}, 
+      #{updatedAt,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dciwang.mbg.model.SysEnv">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sys_env
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="varId != null">
+        var_id,
+      </if>
+      <if test="varName != null">
+        var_name,
+      </if>
+      <if test="varValue != null">
+        var_value,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="varType != null">
+        var_type,
+      </if>
+      <if test="showSequence != null">
+        show_sequence,
+      </if>
+      <if test="updatedAt != null">
+        updated_at,
+      </if>
+      <if test="updatedBy != null">
+        updated_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="varId != null">
+        #{varId,jdbcType=VARCHAR},
+      </if>
+      <if test="varName != null">
+        #{varName,jdbcType=VARCHAR},
+      </if>
+      <if test="varValue != null">
+        #{varValue,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="varType != null">
+        #{varType,jdbcType=VARCHAR},
+      </if>
+      <if test="showSequence != null">
+        #{showSequence,jdbcType=INTEGER},
+      </if>
+      <if test="updatedAt != null">
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null">
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dciwang.mbg.model.SysEnvExample" resultType="java.lang.Integer">
+    select count(*) from sys_env
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sys_env
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.varId != null">
+        var_id = #{record.varId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.varName != null">
+        var_name = #{record.varName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.varValue != null">
+        var_value = #{record.varValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.varType != null">
+        var_type = #{record.varType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.showSequence != null">
+        show_sequence = #{record.showSequence,jdbcType=INTEGER},
+      </if>
+      <if test="record.updatedAt != null">
+        updated_at = #{record.updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedBy != null">
+        updated_by = #{record.updatedBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sys_env
+    set id = #{record.id,jdbcType=INTEGER},
+      var_id = #{record.varId,jdbcType=VARCHAR},
+      var_name = #{record.varName,jdbcType=VARCHAR},
+      var_value = #{record.varValue,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      var_type = #{record.varType,jdbcType=VARCHAR},
+      show_sequence = #{record.showSequence,jdbcType=INTEGER},
+      updated_at = #{record.updatedAt,jdbcType=TIMESTAMP},
+      updated_by = #{record.updatedBy,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dciwang.mbg.model.SysEnv">
+    update sys_env
+    <set>
+      <if test="varId != null">
+        var_id = #{varId,jdbcType=VARCHAR},
+      </if>
+      <if test="varName != null">
+        var_name = #{varName,jdbcType=VARCHAR},
+      </if>
+      <if test="varValue != null">
+        var_value = #{varValue,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="varType != null">
+        var_type = #{varType,jdbcType=VARCHAR},
+      </if>
+      <if test="showSequence != null">
+        show_sequence = #{showSequence,jdbcType=INTEGER},
+      </if>
+      <if test="updatedAt != null">
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null">
+        updated_by = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dciwang.mbg.model.SysEnv">
+    update sys_env
+    set var_id = #{varId,jdbcType=VARCHAR},
+      var_name = #{varName,jdbcType=VARCHAR},
+      var_value = #{varValue,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      var_type = #{varType,jdbcType=VARCHAR},
+      show_sequence = #{showSequence,jdbcType=INTEGER},
+      updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      updated_by = #{updatedBy,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

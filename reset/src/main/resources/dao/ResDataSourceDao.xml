@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dciwang.reset.source.mapper.RestDataSouceDao">
+    <!--resultMap指向定义的唯一的BaseResultMap-->
+    <select id="countDataSouceByName" resultType="int">
+        SELECT
+           count(1)
+        FROM
+        res_data_source
+        WHERE
+         name =#{name}
+    </select>
+    <select id="countDataSouceByIdAndName" resultType="int">
+        SELECT
+           count(1)
+        FROM
+        res_data_source
+        WHERE
+         id=#{id} and name =#{name}
+    </select>
+</mapper>

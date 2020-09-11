@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dciwang.reset.source.mapper.RestDataSoucePropDao">
+    <!--resultMap指向定义的唯一的BaseResultMap-->
+    <select id="getDataSouceByResDataSourceId" resultMap="com.dciwang.mbg.mapper.ResDataSourcePropMapper.BaseResultMap">
+        SELECT
+          *
+        FROM
+        res_data_source_prop
+        WHERE
+         resDataSourceId =#{data_source_id}
+    </select>
+
+</mapper>
